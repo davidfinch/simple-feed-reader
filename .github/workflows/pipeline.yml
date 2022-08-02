@@ -32,5 +32,5 @@ jobs:
       with:
         # Artifact name
         name: website
-        path: build/website/**
+        path: /home/runner/work/simple-feed-reader/simple-feed-reader/website/**
         if-no-files-found: error
