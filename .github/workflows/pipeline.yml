@@ -23,3 +23,14 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+    - name: Publish
+      run: dotnet publish simple-feed-reader/simple-feed-reader.csproj -c Release -o website
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        # Artifact name
+        name: website
+        path: SimpleFeedReader/website/**
+        if-no-files-found: error
