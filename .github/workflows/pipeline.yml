@@ -65,7 +65,7 @@ jobs:
       with:
         app-name: ${{ env.app-name }}
         slot-name: staging
-        package: /home/runner/work/simple-feed-reader/simple-feed-reader/website
+        package: /home/runner/work/simple-feed-reader/simple-feed-reader/website/
 
     - name: az cli logout
       run: az logout
