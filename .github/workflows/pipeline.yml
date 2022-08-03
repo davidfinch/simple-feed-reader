@@ -37,7 +37,7 @@ jobs:
       with:
         # Artifact name
         name: website
-        path: /home/runner/work/simple-feed-reader/simple-feed-reader/website/**
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         if-no-files-found: error
         
   deploy_staging:
