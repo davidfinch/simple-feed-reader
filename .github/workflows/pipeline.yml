@@ -9,11 +9,12 @@ on:
 env:
   app-name: "mysimplefeedreader"
   rg-name: "AzureTutorial"
+  AZURE_WEBAPP_PACKAGE_PATH: simple-feed-reader/publish
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -29,7 +30,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       
     - name: Publish
-      run: dotnet publish simple-feed-reader/simple-feed-reader.csproj -c Release -o website
+      run: dotnet publish simple-feed-reader/simple-feed-reader.csproj -c Release -o "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
@@ -41,7 +42,7 @@ jobs:
         
   deploy_staging:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     environment:
       name: PRE-PROD
@@ -65,7 +66,6 @@ jobs:
       with:
         app-name: ${{ env.app-name }}
         slot-name: staging
-        package: /home/runner/work/simple-feed-reader/simple-feed-reader/website/
-
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: az cli logout
       run: az logout
